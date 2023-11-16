@@ -7,13 +7,29 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class ApiResource extends JsonResource
 {
+    public $status;
+    public $message;
+    public $resource;
+
+    public function __construct($status, $message, $resource)
+    {
+        parent::__construct($resource);
+        $this->status  = $status;
+        $this->message = $message;
+    }
+
     /**
      * Transform the resource into an array.
      *
-     * @return array<string, mixed>
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
      */
-    public function toArray(Request $request): array
+    public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'success'   => $this->status,
+            'message'   => $this->message,
+            'data'      => $this->resource
+        ];
     }
 }
