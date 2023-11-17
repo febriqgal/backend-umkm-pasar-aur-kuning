@@ -10,19 +10,14 @@ use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
+    //* GET ALL PRODUCT
     public function index()
     {
-        $posts = Product::with('user')->get();
+        $posts = Product::with('users')->get();
         return new ApiResource(true, 'Berhasil menampilkan data products', $posts);
     }
 
-    public function destroy($id)
-    {
-        $post = Product::find($id);
-        $post->delete();
-        return new ApiResource(true, 'Data Post Berhasil Dihapus!', null);
-    }
-
+    //* POST PRODUCT
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -48,23 +43,7 @@ class ProductController extends Controller
         return new ApiResource(true, 'Berhasil menambahkan data users', $post);
     }
 
-    public function show($id)
-    {
-        $post = Product::find($id);
-        return new ApiResource(true, 'Detail Data Post!', $post);
-    }
-
-    public function showUserId($userId)
-    {
-        $post = Product::where('user_id', 'LIKE', '%' . $userId . '%')->get();
-        return new ApiResource(true, 'Detail Data Post!', $post);
-    }
-
-    public function search($q)
-    {
-        $post = Product::where('title', 'LIKE', '%' . $q . '%')->get();
-        return new ApiResource(true, 'Detail Data Post!', $post);
-    }
+    //* PUT/UPDATE PRODUCT
     public function update(Request $request, $id)
     {
         $post = Product::find($id);
@@ -79,5 +58,34 @@ class ProductController extends Controller
 
         ]);
         return new ApiResource(true, 'Data Post Berhasil Diubah!', $post);
+    }
+
+    //* DELETE PRODUCT
+    public function destroy($id)
+    {
+        $post = Product::find($id);
+        $post->delete();
+        return new ApiResource(true, 'Data Post Berhasil Dihapus!', null);
+    }
+
+    //* GET PRODUCT BY ID 
+    public function show($id)
+    {
+        $post = Product::find($id);
+        return new ApiResource(true, 'Detail Data Post!', $post);
+    }
+
+    //* GET PRODUCT BY USER ID
+    public function showUserId($userId)
+    {
+        $post = Product::where('user_id', 'LIKE', '%' . $userId . '%')->get();
+        return new ApiResource(true, 'Detail Data Post!', $post);
+    }
+
+    //* SEARCH PRODUCT BY TITLE
+    public function search($q)
+    {
+        $post = Product::where('title', 'LIKE', '%' . $q . '%')->get();
+        return new ApiResource(true, 'Detail Data Post!', $post);
     }
 }

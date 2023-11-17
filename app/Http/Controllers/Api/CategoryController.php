@@ -10,11 +10,15 @@ use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
 {
+
+    //* GET ALL CATEGORY
     public function index()
     {
         $posts = Category::all();
         return new ApiResource(true, 'Berhasil menampilkan data products', $posts);
     }
+
+    //* STORE CATEGORY
     public function store(Request $request)
     {
         //set validation

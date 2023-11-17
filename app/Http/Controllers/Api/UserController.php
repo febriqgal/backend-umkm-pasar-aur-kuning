@@ -10,14 +10,16 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
+
+    //* GET ALL USER
     public function index()
     {
-        //get all posts
         $posts = User::all();
 
-        //return collection of posts as a resource
         return new ApiResource(true, 'Berhasil menampilkan data users', $posts);
     }
+
+    //* POST USER
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -37,12 +39,12 @@ class UserController extends Controller
         //return response
         return new ApiResource(true, 'Berhasil menambahkan data users', $post);
     }
+
+    //* GET USER BY ID
     public function show($id)
     {
+        $post = User::find($id);
 
-        $post = User::where('email', 'LIKE', '%' . $id . '%')->first();
-
-        //return single post as a resource
         return new ApiResource(true, 'Detail Data Post!', $post);
     }
 }

@@ -9,12 +9,15 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
+
+    //* GET ALL CART
     public function index()
     {
-        $posts = Cart::all();
+        $posts = Cart::with('product', 'user')->get();
         return new ApiResource(true, 'Berhasil menampilkan data products', $posts);
     }
 
+    //* DELETE CART
     public function destroy($id)
     {
         $post = Cart::find($id);
@@ -22,6 +25,7 @@ class CartController extends Controller
         return new ApiResource(true, 'Data Post Berhasil Dihapus!', null);
     }
 
+    //* POST CART
     public function store(Request $request)
     {
 
@@ -34,15 +38,17 @@ class CartController extends Controller
         return new ApiResource(true, 'Berhasil menambahkan data users', $post);
     }
 
+    //* GET CART BY ID
     public function show($id)
     {
         $post = Cart::find($id);
         return new ApiResource(true, 'Detail Data Post!', $post);
     }
 
+    //* GET CART BY USER ID
     public function showUserId($userId)
     {
         $post = Cart::where('user_id', $userId)->get();
-        return new ApiResource(true, 'Detail Data Post!', $post);
+        return new ApiResource(true, 'Detail Data By id Post!', $post);
     }
 }
