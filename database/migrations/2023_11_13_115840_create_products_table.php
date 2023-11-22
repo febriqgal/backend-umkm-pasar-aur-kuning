@@ -13,14 +13,13 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->ulid('id')->primary();
-            $table->foreignUlid('user_id')->constrained('users');
+            $table->foreignUlid('user_id')->constrained('users')->onDelete('cascade');
             $table->string('title');
             $table->string('desc');
             $table->string('price')->default(0);
             $table->string('image')->default(null);
             $table->string('stock')->default(0);
             $table->string('discount')->default(0);
-            $table->string('category');
             $table->string('total')->default(0);
             $table->timestamps();
         });

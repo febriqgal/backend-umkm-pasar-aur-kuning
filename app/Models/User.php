@@ -16,6 +16,7 @@ class User extends Model
         'email',
         'password',
         'address',
+        'phone',
         'role'
     ];
     public function products(): HasMany

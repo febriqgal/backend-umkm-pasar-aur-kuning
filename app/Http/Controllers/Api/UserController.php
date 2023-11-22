@@ -16,7 +16,7 @@ class UserController extends Controller
     {
         $posts = User::all();
 
-        return new ApiResource(true, 'Berhasil menampilkan data users', $posts);
+        return new ApiResource(true, 'Berhasil menampilkan data', $posts);
     }
 
     //* POST USER
@@ -33,18 +33,37 @@ class UserController extends Controller
             'email'     => $request->email,
             'password'  => $request->password,
             'role'      => $request->role,
+            'phone'     => $request->phone,
             'address'   => $request->address
         ]);
 
         //return response
-        return new ApiResource(true, 'Berhasil menambahkan data users', $post);
+        return new ApiResource(true, 'Berhasil menambahkan data', $post);
     }
 
     //* GET USER BY ID
     public function show($id)
     {
-        $post = User::find($id);
+        $post = User::where('email', 'LIKE', '%' . $id . '%')->first();
 
-        return new ApiResource(true, 'Detail Data Post!', $post);
+        return new ApiResource(true, 'Detail Data!', $post);
     }
+
+    //* UPDATE USER
+    public function update(Request $request, $id)
+    {
+        $user = User::find($id);
+        $user->update($request->all());
+
+        return new ApiResource(true, 'Data Berhasil!', $user);
+    }
+
+    //* DELETE USER
+    // public function destroy($id)
+    // {
+    //     $user = User::find($id);
+    //     $user->delete();
+
+    //     return new ApiResource(true, 'Data Berhasil Dihapus!', null);
+    // }
 }

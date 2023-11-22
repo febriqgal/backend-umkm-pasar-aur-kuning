@@ -13,42 +13,40 @@ class CartController extends Controller
     //* GET ALL CART
     public function index()
     {
-        $posts = Cart::with('product', 'user')->get();
-        return new ApiResource(true, 'Berhasil menampilkan data products', $posts);
+        $posts = Cart::all();
+        return new ApiResource(true, 'Berhasil menampilkan data', $posts);
     }
 
     //* DELETE CART
     public function destroy($id)
     {
         $post = Cart::find($id);
-        $post->delete();
-        return new ApiResource(true, 'Data Post Berhasil Dihapus!', null);
+        $post->delete(true);
+
+
+        return new ApiResource(true, 'Data Berhasil Dihapus!', $post);
     }
 
     //* POST CART
     public function store(Request $request)
     {
-
-        $post = Cart::create([
-            'user_id' => $request->user_id,
-            'product_id' => $request->product_id,
-            'quantity' => $request->quantity,
-            'total' => $request->total
-        ]);
-        return new ApiResource(true, 'Berhasil menambahkan data users', $post);
+        $post = Cart::create($request->all());
+        return new ApiResource(true, 'Berhasil menambahkan data', $post);
     }
 
     //* GET CART BY ID
     public function show($id)
     {
         $post = Cart::find($id);
-        return new ApiResource(true, 'Detail Data Post!', $post);
+
+        return new ApiResource(true, 'Detail Data!', $post);
     }
 
     //* GET CART BY USER ID
     public function showUserId($userId)
     {
-        $post = Cart::where('user_id', $userId)->get();
-        return new ApiResource(true, 'Detail Data By id Post!', $post);
+        $post = Cart::where('user_id', $userId)->with('product', 'user')->get();
+
+        return new ApiResource(true, 'Detail Data By id!', $post);
     }
 }

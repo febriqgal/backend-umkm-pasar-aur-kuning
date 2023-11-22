@@ -20,7 +20,6 @@ class Product extends Model
         'image',
         'stock',
         'discount',
-        'category',
         'total'
     ];
     public function users(): BelongsTo
