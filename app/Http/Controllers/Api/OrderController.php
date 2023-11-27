@@ -39,4 +39,10 @@ class OrderController extends Controller
 
         return new ApiResource(true, 'Detail Data By id!', $post);
     }
+    public function filterStatus($status)
+    {
+        $post = Order::where('status', $status)->with('user', 'product', 'cart')->orderBy('created_at', 'desc')->get();
+
+        return new ApiResource(true, 'Detail Data By id!', $post);
+    }
 }

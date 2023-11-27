@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Route;
 Route::apiResource('/users', App\Http\Controllers\Api\UserController::class);
 
 //* CATEGORY
-Route::apiResource('/category', App\Http\Controllers\Api\CategoryController::class);
 
 //* CART
 Route::apiResource('/carts', App\Http\Controllers\Api\CartController::class);
@@ -20,3 +19,4 @@ Route::get('/products/search/{q}', [App\Http\Controllers\Api\ProductController::
 
 //* ORDER
 Route::apiResource('/orders', App\Http\Controllers\Api\OrderController::class);
+Route::get('/orders/status/{status}', [App\Http\Controllers\Api\OrderController::class, 'filterStatus']);
