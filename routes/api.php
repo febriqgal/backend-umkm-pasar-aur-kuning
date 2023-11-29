@@ -20,3 +20,4 @@ Route::get('/products/search/{q}', [App\Http\Controllers\Api\ProductController::
 //* ORDER
 Route::apiResource('/orders', App\Http\Controllers\Api\OrderController::class);
 Route::get('/orders/status/{status}', [App\Http\Controllers\Api\OrderController::class, 'filterStatus']);
+Route::get('/orders/toko/{toko}', [App\Http\Controllers\Api\OrderController::class, 'filterToko']);

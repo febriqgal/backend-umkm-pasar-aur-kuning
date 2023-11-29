@@ -45,4 +45,10 @@ class OrderController extends Controller
 
         return new ApiResource(true, 'Detail Data By id!', $post);
     }
+    public function filterToko($toko)
+    {
+        $post = Order::where('id_toko', $toko)->with('user', 'product', 'cart')->get();
+
+        return new ApiResource(true, 'Detail Data By id!', $post);
+    }
 }

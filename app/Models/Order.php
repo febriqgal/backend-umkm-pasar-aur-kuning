@@ -16,6 +16,7 @@ class Order extends Model
         'user_id',
         'product_id',
         'cart_id',
+        'id_toko',
         'total',
         'status',
         'payment',

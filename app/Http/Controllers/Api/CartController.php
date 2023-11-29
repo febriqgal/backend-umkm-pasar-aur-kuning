@@ -37,7 +37,7 @@ class CartController extends Controller
     //* GET CART BY ID
     public function show($id)
     {
-        $post = Cart::find($id);
+        $post = Cart::where('id', $id)->with('product', 'user')->orderBy('created_at', 'desc')->first();
 
         return new ApiResource(true, 'Detail Data!', $post);
     }
@@ -45,7 +45,7 @@ class CartController extends Controller
     //* GET CART BY USER ID
     public function showUserId($userId)
     {
-        $post = Cart::where('user_id', $userId)->with('product', 'user')->get();
+        $post = Cart::where('user_id', $userId)->with('product', 'user')->orderBy('created_at', 'desc')->get();
 
         return new ApiResource(true, 'Detail Data By id!', $post);
     }
