@@ -7,13 +7,15 @@ use App\Http\Resources\ApiResource;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
     //* GET ALL PRODUCT
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Product::with('users')->get();
+        $posts = Product::all();
         return new ApiResource(true, 'Berhasil menampilkan data', $posts);
     }
 

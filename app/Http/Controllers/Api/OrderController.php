@@ -11,7 +11,7 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $posts = Order::with('user', 'product', 'cart')->get();
+        $posts = Order::OrderBy('created_at', 'desc')->get();
         return new ApiResource(true, 'Berhasil menampilkan data', $posts);
     }
     public function store(Request $request)
@@ -35,13 +35,13 @@ class OrderController extends Controller
     }
     public function show($userId)
     {
-        $post = Order::where('user_id', $userId)->with('user', 'product', 'cart')->orderBy('created_at', 'desc')->get();
+        $post = Order::where('user_id', $userId)->get();
 
         return new ApiResource(true, 'Detail Data By id!', $post);
     }
     public function filterStatus($status)
     {
-        $post = Order::where('status', $status)->with('user', 'product', 'cart')->orderBy('created_at', 'desc')->get();
+        $post = Order::where('status', $status)->orderBy('created_at', 'desc')->get();
 
         return new ApiResource(true, 'Detail Data By id!', $post);
     }

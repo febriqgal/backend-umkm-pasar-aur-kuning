@@ -13,10 +13,14 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->ulid('id')->primary();
-            $table->foreignUlid('cart_id')->constrained('carts')->onDelete('cascade');
-            $table->string('id_toko')->nullable();
-            $table->foreignUlid('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignUlid('product_id')->constrained('products')->onDelete('cascade');
+            $table->string('user_id');
+            $table->string('name');
+            $table->string('address');
+            $table->string('phone');
+            $table->string('title');
+            $table->string('image')->default(null);
+            $table->integer('quantity');
+            $table->string('note')->default(null);
             $table->integer('total')->default(0);
             $table->string('payment')->nullable();
             $table->enum('status', ['pending', 'delivered', 'cancelled', 'success'])->default('pending');

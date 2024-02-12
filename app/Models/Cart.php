@@ -13,13 +13,7 @@ class Cart extends Model
 {
     use HasFactory;
     use HasUlids;
-    protected $fillable = [
-        'user_id',
-        'product_id',
-        'quantity',
-        'note',
-        'total',
-    ];
+    protected $guarded = [];
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
